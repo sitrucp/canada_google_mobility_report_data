@@ -1,0 +1,137 @@
+﻿Index,date_full,province,category,value,date
+3,3/29/2020,Alberta,Retail & recreation,-55,Mar 29
+5,3/29/2020,Alberta,Grocery & pharmacy,-29,Mar 29
+7,3/29/2020,Alberta,Parks,-23,Mar 29
+9,3/29/2020,Alberta,Transit stations,-63,Mar 29
+11,3/29/2020,Alberta,Workplace,-41,Mar 29
+13,3/29/2020,Alberta,Residential,13,Mar 29
+16,3/29/2020,British Columbia,Retail & recreation,-54,Mar 29
+18,3/29/2020,British Columbia,Grocery & pharmacy,-28,Mar 29
+20,3/29/2020,British Columbia,Parks,27,Mar 29
+22,3/29/2020,British Columbia,Transit stations,-59,Mar 29
+24,3/29/2020,British Columbia,Workplace,-47,Mar 29
+26,3/29/2020,British Columbia,Residential,13,Mar 29
+29,3/29/2020,Manitoba,Retail & recreation,-49,Mar 29
+31,3/29/2020,Manitoba,Grocery & pharmacy,-21,Mar 29
+33,3/29/2020,Manitoba,Parks,-9,Mar 29
+35,3/29/2020,Manitoba,Transit stations,-56,Mar 29
+37,3/29/2020,Manitoba,Workplace,-36,Mar 29
+39,3/29/2020,Manitoba,Residential,11,Mar 29
+42,3/29/2020,New Brunswick,Retail & recreation,-42,Mar 29
+44,3/29/2020,New Brunswick,Grocery & pharmacy,-20,Mar 29
+46,3/29/2020,New Brunswick,Parks,101,Mar 29
+48,3/29/2020,New Brunswick,Transit stations,-47,Mar 29
+50,3/29/2020,New Brunswick,Workplace,-35,Mar 29
+52,3/29/2020,New Brunswick,Residential,8,Mar 29
+55,3/29/2020,Newfoundland and Labrador,Retail & recreation,-54,Mar 29
+57,3/29/2020,Newfoundland and Labrador,Grocery & pharmacy,-38,Mar 29
+59,3/29/2020,Newfoundland and Labrador,Parks,-18,Mar 29
+61,3/29/2020,Newfoundland and Labrador,Transit stations,-60,Mar 29
+63,3/29/2020,Newfoundland and Labrador,Workplace,-35,Mar 29
+65,3/29/2020,Newfoundland and Labrador,Residential,9,Mar 29
+68,3/29/2020,Northwest Territories,Retail & recreation,-59,Mar 29
+70,3/29/2020,Northwest Territories,Grocery & pharmacy,-44,Mar 29
+74,3/29/2020,Northwest Territories,Transit stations,-59,Mar 29
+76,3/29/2020,Northwest Territories,Workplace,-32,Mar 29
+81,3/29/2020,Nova Scotia,Retail & recreation,-33,Mar 29
+83,3/29/2020,Nova Scotia,Grocery & pharmacy,-7,Mar 29
+85,3/29/2020,Nova Scotia,Parks,95,Mar 29
+87,3/29/2020,Nova Scotia,Transit stations,-45,Mar 29
+89,3/29/2020,Nova Scotia,Workplace,-32,Mar 29
+91,3/29/2020,Nova Scotia,Residential,5,Mar 29
+94,3/29/2020,Nunavut,Retail & recreation,-47,Mar 29
+102,3/29/2020,Nunavut,Workplace,-32,Mar 29
+107,3/29/2020,Ontario,Retail & recreation,-59,Mar 29
+109,3/29/2020,Ontario,Grocery & pharmacy,-33,Mar 29
+111,3/29/2020,Ontario,Parks,-14,Mar 29
+113,3/29/2020,Ontario,Transit stations,-66,Mar 29
+115,3/29/2020,Ontario,Workplace,-46,Mar 29
+117,3/29/2020,Ontario,Residential,14,Mar 29
+120,3/29/2020,Prince Edward Island,Retail & recreation,-43,Mar 29
+122,3/29/2020,Prince Edward Island,Grocery & pharmacy,-19,Mar 29
+124,3/29/2020,Prince Edward Island,Parks,-51,Mar 29
+128,3/29/2020,Prince Edward Island,Workplace,-34,Mar 29
+130,3/29/2020,Prince Edward Island,Residential,25,Mar 29
+133,3/29/2020,Quebec,Retail & recreation,-70,Mar 29
+135,3/29/2020,Quebec,Grocery & pharmacy,-44,Mar 29
+137,3/29/2020,Quebec,Parks,-68,Mar 29
+139,3/29/2020,Quebec,Transit stations,-75,Mar 29
+141,3/29/2020,Quebec,Workplace,-45,Mar 29
+143,3/29/2020,Quebec,Residential,15,Mar 29
+146,3/29/2020,Saskatchewan,Retail & recreation,-53,Mar 29
+148,3/29/2020,Saskatchewan,Grocery & pharmacy,-24,Mar 29
+150,3/29/2020,Saskatchewan,Parks,45,Mar 29
+152,3/29/2020,Saskatchewan,Transit stations,-52,Mar 29
+154,3/29/2020,Saskatchewan,Workplace,-37,Mar 29
+156,3/29/2020,Saskatchewan,Residential,11,Mar 29
+159,3/29/2020,Yukon,Retail & recreation,-43,Mar 29
+161,3/29/2020,Yukon,Grocery & pharmacy,-28,Mar 29
+167,3/29/2020,Yukon,Workplace,-31,Mar 29
+172,4/5/2020,Alberta,Retail & recreation,-57,Apr 05
+174,4/5/2020,Alberta,Grocery & pharmacy,-33,Apr 05
+176,4/5/2020,Alberta,Parks,-51,Apr 05
+178,4/5/2020,Alberta,Transit stations,-69,Apr 05
+180,4/5/2020,Alberta,Workplace,-43,Apr 05
+182,4/5/2020,Alberta,Residential,14,Apr 05
+185,4/5/2020,British Columbia,Retail & recreation,-53,Apr 05
+187,4/5/2020,British Columbia,Grocery & pharmacy,-30,Apr 05
+189,4/5/2020,British Columbia,Parks,31,Apr 05
+191,4/5/2020,British Columbia,Transit stations,-61,Apr 05
+193,4/5/2020,British Columbia,Workplace,-47,Apr 05
+195,4/5/2020,British Columbia,Residential,13,Apr 05
+198,4/5/2020,Manitoba,Retail & recreation,-54,Apr 05
+200,4/5/2020,Manitoba,Grocery & pharmacy,-29,Apr 05
+202,4/5/2020,Manitoba,Parks,-30,Apr 05
+204,4/5/2020,Manitoba,Transit stations,-61,Apr 05
+206,4/5/2020,Manitoba,Workplace,-40,Apr 05
+208,4/5/2020,Manitoba,Residential,12,Apr 05
+211,4/5/2020,New Brunswick,Retail & recreation,-43,Apr 05
+213,4/5/2020,New Brunswick,Grocery & pharmacy,-23,Apr 05
+215,4/5/2020,New Brunswick,Parks,78,Apr 05
+217,4/5/2020,New Brunswick,Transit stations,-53,Apr 05
+219,4/5/2020,New Brunswick,Workplace,-37,Apr 05
+221,4/5/2020,New Brunswick,Residential,8,Apr 05
+224,4/5/2020,Newfoundland and Labrador,Retail & recreation,-43,Apr 05
+226,4/5/2020,Newfoundland and Labrador,Grocery & pharmacy,-25,Apr 05
+228,4/5/2020,Newfoundland and Labrador,Parks,23,Apr 05
+230,4/5/2020,Newfoundland and Labrador,Transit stations,-58,Apr 05
+232,4/5/2020,Newfoundland and Labrador,Workplace,-33,Apr 05
+234,4/5/2020,Newfoundland and Labrador,Residential,8,Apr 05
+237,4/5/2020,Northwest Territories,Retail & recreation,-53,Apr 05
+239,4/5/2020,Northwest Territories,Grocery & pharmacy,-41,Apr 05
+243,4/5/2020,Northwest Territories,Transit stations,-62,Apr 05
+245,4/5/2020,Northwest Territories,Workplace,-34,Apr 05
+248,4/5/2020,Nova Scotia,Retail & recreation,-38,Apr 05
+250,4/5/2020,Nova Scotia,Grocery & pharmacy,-15,Apr 05
+252,4/5/2020,Nova Scotia,Parks,44,Apr 05
+254,4/5/2020,Nova Scotia,Transit stations,-51,Apr 05
+256,4/5/2020,Nova Scotia,Workplace,-33,Apr 05
+258,4/5/2020,Nova Scotia,Residential,5,Apr 05
+261,4/5/2020,Nunavut,Retail & recreation,-36,Apr 05
+269,4/5/2020,Nunavut,Workplace,-23,Apr 05
+272,4/5/2020,Ontario,Retail & recreation,-60,Apr 05
+274,4/5/2020,Ontario,Grocery & pharmacy,-32,Apr 05
+276,4/5/2020,Ontario,Parks,-11,Apr 05
+278,4/5/2020,Ontario,Transit stations,-67,Apr 05
+280,4/5/2020,Ontario,Workplace,-47,Apr 05
+282,4/5/2020,Ontario,Residential,14,Apr 05
+285,4/5/2020,Prince Edward Island,Retail & recreation,-41,Apr 05
+287,4/5/2020,Prince Edward Island,Grocery & pharmacy,-20,Apr 05
+289,4/5/2020,Prince Edward Island,Parks,-51,Apr 05
+293,4/5/2020,Prince Edward Island,Workplace,-32,Apr 05
+295,4/5/2020,Prince Edward Island,Residential,25,Apr 05
+298,4/5/2020,Quebec,Retail & recreation,-84,Apr 05
+300,4/5/2020,Quebec,Grocery & pharmacy,-78,Apr 05
+302,4/5/2020,Quebec,Parks,-42,Apr 05
+304,4/5/2020,Quebec,Transit stations,-75,Apr 05
+306,4/5/2020,Quebec,Workplace,-52,Apr 05
+308,4/5/2020,Quebec,Residential,16,Apr 05
+311,4/5/2020,Saskatchewan,Retail & recreation,-55,Apr 05
+313,4/5/2020,Saskatchewan,Grocery & pharmacy,-29,Apr 05
+315,4/5/2020,Saskatchewan,Parks,-14,Apr 05
+317,4/5/2020,Saskatchewan,Transit stations,-59,Apr 05
+319,4/5/2020,Saskatchewan,Workplace,-39,Apr 05
+321,4/5/2020,Saskatchewan,Residential,12,Apr 05
+324,4/5/2020,Yukon,Retail & recreation,-41,Apr 05
+326,4/5/2020,Yukon,Grocery & pharmacy,-26,Apr 05
+332,4/5/2020,Yukon,Workplace,-32,Apr 05
