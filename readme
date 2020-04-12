@@ -1,0 +1,16 @@
+Google Community Mobility Report										
+Canada Province & Territories 
+
+Location history visit & length of stay change compared to baseline										
+
+<a href="https://www.google.com/covid19/mobility/">Google Community Mobility Report	</a> has a filter by Country or Country State, Province. 
+
+This data is based on filter for "Canada" which results in pdf file with summary section for all of Canada and separate sections for each Canadian province and territory.
+
+I copied the entire pdf text and pasted into blank Notepad++ file. This results in set of text. 
+
+All lines of text were deleted except those relevant to each Canadian province and territory. 
+
+This text file then became source for Excel Power Query data connection. Using variety of Power Query transformations the data was transformed into columns for date of report, province/territory name, and mobility report category and value.
+
+This transformed data was then used to generate Excel Pivot Table and Charts to visualize mobility report data by province/territory and report date.

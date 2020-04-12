@@ -1,0 +1,22 @@
+let
+    Source = Excel.CurrentWorkbook(){[Name="rgOrigData"]}[Content],
+    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"keep", type text}, {"data", type text}, {"date", type date}}),
+    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each not Text.Contains([data], "*")),
+    #"Added Index" = Table.AddIndexColumn(#"Filtered Rows", "Index", 1, 1),
+    #"Added Custom" = Table.AddColumn(#"Added Index", "value", each if Text.Contains([data], "compared to baseline") then [data] else if Text.Contains(Text.Lower([data]), "not enough") then "na" else null),
+    #"Replaced Value" = Table.ReplaceValue(#"Added Custom","% compared to baseline","",Replacer.ReplaceText,{"value"}),
+    #"Merged Queries" = Table.NestedJoin(#"Replaced Value", {"data"}, rgCategories, {"category"}, "rgCategories", JoinKind.LeftOuter),
+    #"Expanded rgCategories" = Table.ExpandTableColumn(#"Merged Queries", "rgCategories", {"category"}, {"category"}),
+    #"Merged Queries1" = Table.NestedJoin(#"Expanded rgCategories", {"data"}, rgProv, {"province"}, "rgProv", JoinKind.LeftOuter),
+    #"Expanded rgProv" = Table.ExpandTableColumn(#"Merged Queries1", "rgProv", {"province"}, {"province"}),
+    #"Sorted Rows" = Table.Sort(#"Expanded rgProv",{{"Index", Order.Ascending}}),
+    #"Removed Columns" = Table.RemoveColumns(#"Sorted Rows",{"keep", "data"}),
+    #"Filled Down" = Table.FillDown(#"Removed Columns",{"province", "category"}),
+    #"Filtered Rows1" = Table.SelectRows(#"Filled Down", each ([value] <> null and [value] <> "na")),
+    #"Changed Type1" = Table.TransformColumnTypes(#"Filtered Rows1",{{"value", type number}}),
+    #"Reordered Columns" = Table.ReorderColumns(#"Changed Type1",{"Index", "date", "province", "category", "value"}),
+    #"Renamed Columns" = Table.RenameColumns(#"Reordered Columns",{{"date", "date_full"}}),
+    #"Added Custom1" = Table.AddColumn(#"Renamed Columns", "date", each Date.ToText([date_full], "MMM dd"))
+in
+    #"Added Custom1"
