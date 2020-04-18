@@ -1,6 +1,6 @@
 {
   "essential" : {
-    "graphic_data_url": "https://raw.githubusercontent.com/sitrucp/canada_google_mobility_report_data/master/google_mobility_Canada_data.csv",
+    "graphic_data_url": "https://raw.githubusercontent.com/sitrucp/canada_google_mobility_report_data/master/google_mobility_canada_data.csv",
     "canadianProv":["AB","BC","MB","NB","NF","NS","NT","NU","ON","PE","QC","SK","YK"],
     "categorySort":["Workplaces","Retail & Recreation","Transit Stations","Grocery & Pharmacy","Parks","Residential"],
     "categoryHeight": {
