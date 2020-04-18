@@ -1,7 +1,7 @@
-**Google Community Mobility Report - Canada Province & Territories **
+<strong>Google Community Mobility Report - Canada Province & Territories</strong>
 Location history visit & length of stay change compared to baseline 
 
-This data was obtained from <a href="https://www.google.com/covid19/mobility/">Google Community Mobility Report</a> webpage. Page was set to filter for "Canada" which results in PDF file. PDF with summary section for all of Canad followed by separate sections for each Canadian province and territory.
+This data was obtained from <a href="https://www.google.com/covid19/mobility/">Google Community Mobility Report</a> webpage. Page was set to filter for "Canada" which results in PDF file. PDF with summary section for all of Canada followed by separate sections for each Canadian province and territory.
 
 The entire PDF text was copied (eg ctrl-a on PDF page) and pasted (ctrl-v) into blank text file. All lines of text, except those relevant to each Canadian province and territory, were deleted . 
 

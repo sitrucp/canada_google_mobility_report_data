@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Community Mobility Report - Canada Province & Territories</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="site.css" />
+</head>
+
+<body>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Google Community Mobility Report - Canada Province & Territories</h3>
+            <p id="header">This is Google users' location history visit & length of stay change compared to baseline. Google provides this in PDF format by country or state at <a href="https://www.google.com/covid19/mobility/">Google Community Mobility Report</a> webpage. This specific reports data was obtained from the "Canada" PDF file.</p>
+
+            <div id="tester"></div>
+        </div>
+    </div>
+
+    <script>
+
+    d3.queue()
+    .defer(d3.csv, "https://raw.githubusercontent.com/sitrucp/canada_google_mobility_report_data/master/google_mobility_Canada_data.csv")
+    .await(function(error, mobility_data) {
+
+        //date_full,province,category,value,date
+
+        console.log(mobility_data);
+
+        var date_full = mobility_data.map(function(value,index) { return value[1]; });
+        var province = mobility_data.map(function(value,index) { return value[2]; });
+        var category = mobility_data.map(function(value,index) { return value[3]; });
+        var value = mobility_data.map(function(value,index) { return value[4]; });
+
+        //console.log(date_full);
+
+        var myDiv = document.getElementById('tester');
+
+        var data = [
+            {
+                z: [[1, null, 30, 50, 1], [20, 1, 60, 80, 30], [30, 60, 1, -10, 20]],
+                x: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                y: ['Morning', 'Afternoon', 'Evening'],
+                type: 'heatmap',
+                hoverongaps: false
+            }
+            ];
+
+        var layout = {
+            title: 'Create a Static Chart',
+            showlegend: false
+        };
+
+        Plotly.newPlot(
+            myDiv, 
+            data, 
+            layout, 
+            {displayModeBar: false}, 
+            {responsive: true}
+        );
+        
+});
+
+    </script>
+    
+</body>
+</html>
