@@ -8,9 +8,12 @@ Users can download csv file or use page feature to filter for specific country o
 
 The csv data was transformed using Excel Power Query. The Excel files and their M Code are provided here. The Excel file has Pivot Table and Chart combos that can be used to slice and dice global data by date, country, sub region 1 & 2 and category. Another ivot Table and Chart is setup as a heatmap visualization of values by date for each province and territory.
 
-In addition, a separate D3.js heatmap visualization was created for 12 Canadian Provinces and Territories was created using slightly modified code from <a href="https://github.com/datasciencecampus/google-mobility-reports-data">https://github.com/datasciencecampus/google-mobility-reports-data</a> that datasciencecampus used to create this <a href="https://onsvisual.github.io/google-mobility-map/heatmap/">heatmap comparing categories of 6 countries</a>.
+In addition, a separate D3.js heatmap visualization was created for 12 Canadian Provinces and Territories was created. The D3.js visualization can be seen <a href="https://sitrucp.github.io/canada_google_mobility_report_data/">here</a>.
 
-The D3.js visualization can be seen <a href=" https://sitrucp.github.io/canada_google_mobility_report_data/">here</a>
+The D3.js visualization uses slightly modified code from <a href="https://github.com/datasciencecampus/google-mobility-reports-data">https://github.com/datasciencecampus/google-mobility-reports-data</a> that datasciencecampus used to create this <a href="https://onsvisual.github.io/google-mobility-map/heatmap/">heatmap comparing categories of 6 countries</a>.
+
+
+
 
 Screenshot of D3.js visualization
-![Alt text](/screenshot_heatmap.jpg?raw=true "Screenshot of D3.js heatmap")
+![Alt text](/screenshot_heatmap.jpg?raw=true)
