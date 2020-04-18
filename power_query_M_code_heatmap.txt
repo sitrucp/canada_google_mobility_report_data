@@ -1,0 +1,20 @@
+let
+    Source = Csv.Document(File.Contents("C:\Users\bb\OneDrive - 009co\www\ws_covid_canada_google_mobility\Global_Mobility_Report.csv"),[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"country_region_code", type text}, {"country_region", type text}, {"sub_region_1", type text}, {"sub_region_2", type text}, {"date", type date}, {"retail_and_recreation_percent_change_from_baseline", Int64.Type}, {"grocery_and_pharmacy_percent_change_from_baseline", Int64.Type}, {"parks_percent_change_from_baseline", Int64.Type}, {"transit_stations_percent_change_from_baseline", Int64.Type}, {"workplaces_percent_change_from_baseline", Int64.Type}, {"residential_percent_change_from_baseline", Int64.Type}}),
+    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([country_region] = "Canada")),
+    #"Added Custom" = Table.AddColumn(#"Filtered Rows", "YYYY-MM-DD", each Text.From(Date.Year([date])) & "-" & (if Text.Length(Text.From(Date.Month([date]))) = 1 then "0" & Text.From(Date.Month([date])) else Text.From(Date.Month([date]))) & "-" & (if (Text.Length(Text.From(Date.Day([date])))) = 1 then "0" & Text.From(Date.Day([date])) else Text.From(Date.Day([date])))),
+    #"Removed Columns" = Table.RemoveColumns(#"Added Custom",{"sub_region_2",  "date"}),
+    #"Unpivoted Columns" = Table.UnpivotOtherColumns(#"Removed Columns", {"country_region_code", "country_region","sub_region_1",  "YYYY-MM-DD"}, "Attribute", "Value"),
+    #"Pivoted Column1" = Table.Pivot(#"Unpivoted Columns", List.Distinct(#"Unpivoted Columns"[#"YYYY-MM-DD"]), "YYYY-MM-DD", "Value", List.Average),
+    #"Replaced Value" = Table.ReplaceValue(#"Pivoted Column1","_percent_change_from_baseline","",Replacer.ReplaceText,{"Attribute"}),
+    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","_"," ",Replacer.ReplaceText,{"Attribute"}),
+    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1"," and "," & ",Replacer.ReplaceText,{"Attribute"}),
+    #"Capitalized Each Word" = Table.TransformColumns(#"Replaced Value2",{{"Attribute", Text.Proper, type text}}),
+    #"Filtered Rows1" = Table.SelectRows(#"Capitalized Each Word", each ([sub_region_1] <> "")),
+    #"Merged Queries" = Table.NestedJoin(#"Filtered Rows1", {"sub_region_1"}, rgProv, {"province"}, "rgProv", JoinKind.LeftOuter),
+    #"Expanded rgProv" = Table.ExpandTableColumn(#"Merged Queries", "rgProv", {"prov"}, {"prov"}),
+    #"Renamed Columns" = Table.RenameColumns(#"Expanded rgProv",{{"Attribute", "Category"}, {"country_region", "Country"}, {"sub_region_1", "Province"}, {"country_region_code", "Country Code"}, {"prov", "Prov"}}),
+    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns",{"Country Code", "Country", "Province", "Prov", "Category", "2020-02-15", "2020-02-16", "2020-02-17", "2020-02-18", "2020-02-19", "2020-02-20", "2020-02-21", "2020-02-22", "2020-02-23", "2020-02-24", "2020-02-25", "2020-02-26", "2020-02-27", "2020-02-28", "2020-02-29", "2020-03-01", "2020-03-02", "2020-03-03", "2020-03-04", "2020-03-05", "2020-03-06", "2020-03-07", "2020-03-08", "2020-03-09", "2020-03-10", "2020-03-11", "2020-03-12", "2020-03-13", "2020-03-14", "2020-03-15", "2020-03-16", "2020-03-17", "2020-03-18", "2020-03-19", "2020-03-20", "2020-03-21", "2020-03-22", "2020-03-23", "2020-03-24", "2020-03-25", "2020-03-26", "2020-03-27", "2020-03-28", "2020-03-29", "2020-03-30", "2020-03-31", "2020-04-01", "2020-04-02", "2020-04-03", "2020-04-04", "2020-04-05", "2020-04-06", "2020-04-07", "2020-04-08", "2020-04-09", "2020-04-10", "2020-04-11"})
+in
+    #"Reordered Columns"

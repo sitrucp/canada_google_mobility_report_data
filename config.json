@@ -1,7 +1,7 @@
 {
   "essential" : {
     "graphic_data_url": "https://raw.githubusercontent.com/sitrucp/canada_google_mobility_report_data/master/google_mobility_Canada_data.csv",
-    "chosenCountries":["AB","BC","MB","NB","NF","NS","NT","NU","ON","PE","QC","SK","YK"],
+    "canadianProv":["AB","BC","MB","NB","NF","NS","NT","NU","ON","PE","QC","SK","YK"],
     "categorySort":["Workplaces","Retail & Recreation","Transit Stations","Grocery & Pharmacy","Parks","Residential"],
     "categoryHeight": {
       "small": 20,
@@ -22,7 +22,7 @@
     "legenddecimals":0,
     "displaydecimals":0,
     "varcolour":["#b2182b","#d6604d","#f4a582","#fddbc7","#f7f7f7","#d1e5f0","#92c5de","#4393c3","#2166ac"],
-    "varunit":"comparison to baseline"
+    "varunit":"Percent comparison to baseline"
   },
   "optional" : {
     "margin": {
@@ -36,7 +36,7 @@
         "top": 20,
         "right": 55,
         "bottom": 20,
-        "left": 140
+        "left": 40
       }
     },
     "mobileBreakpoint" : 450,

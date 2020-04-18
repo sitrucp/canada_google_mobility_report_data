@@ -1,41 +1,16 @@
-<strong>Google Community Mobility Report - Canada Province & Territories</strong>
-Location history visit & length of stay change compared to baseline 
+<strong>Canada Provinces & Territories Google Community Mobility Report Data Visualizations</strong>
 
-This data was obtained from <a href="https://www.google.com/covid19/mobility/">Google Community Mobility Report</a> webpage. Page was set to filter for "Canada" which results in PDF file. PDF with summary section for all of Canada followed by separate sections for each Canadian province and territory.
+Google is providing this location history visit & length of stay change compared to baseline  data for covid-19 related analysis as proxy to recommended "stay at home" adherence. As of April 18, the data availble spans period from Feb 15 to Apr 11 2020. 
 
-The entire PDF text was copied (eg ctrl-a on PDF page) and pasted (ctrl-v) into blank text file. All lines of text, except those relevant to each Canadian province and territory, were deleted . 
+Data is available as csv file format at <a href="https://www.google.com/covid19/mobility/">Google Community Mobility Report webpage</a>. 
 
-The resulting text file was data source for Excel Power Query data connection that uses a variety of Power Query transformations to render text into tabular format including columns for date of report, province/territory name, and mobility report category and value. Power Query M code has been copied out to text file from the Excel file's Power Query.
+Users can download csv file or use page feature to filter for specific country or country sub regions eg state or provinces, etc.
 
-This transformed data was then used to generate Excel Pivot Table and Charts to visualize mobility report data by province/territory and report date.
+The csv data was transformed using Excel Power Query. The Excel files and their M Code are provided here. The Excel file has Pivot Table and Chart combos that can be used to slice and dice global data by date, country, sub region 1 & 2 and category. Another ivot Table and Chart is setup as a heatmap visualization of values by date for each province and territory.
 
-As new Canada Google Community Mobility Reports are available, additional report text can be appended to the existing data to do trend and comparative analysis.
+In addition, a separate D3.js heatmap visualization was created for 12 Canadian Provinces and Territories was created using slightly modified code from <a href="https://github.com/datasciencecampus/google-mobility-reports-data">https://github.com/datasciencecampus/google-mobility-reports-data</a> that datasciencecampus used to create this <a href="https://onsvisual.github.io/google-mobility-map/heatmap/">heatmap comparing categories of 6 countries</a>.
 
-Example PDF text copied and pasted for Alberta. The Power Query transformation moved rows to columns and filled down province and category names to create complete dataset:
+The D3.js visualization can be seen <a href=" https://sitrucp.github.io/canada_google_mobility_report_data/">here</a>
 
-Alberta
-Retail & recreation
--57% compared to baseline
-Grocery & pharmacy
--33% compared to baseline
-Parks
--51% compared to baseline
-Transit stations
--69% compared to baseline
-Workplace
--43% compared to baseline
-Residential
-+14% compared to baseline
-British Columbia
-Retail & recreation
--53% compared to baseline
-Grocery & pharmacy
--30% compared to baseline
-Parks
-+31% compared to baseline
-Transit stations
--61% compared to baseline
-Workplace
--47% compared to baseline
-Residential
-+13% compared to baseline
+Screenshot of D3.js visualization
+![Alt text](/screenshot_heatmap.jpg?raw=true "Screenshot of D3.js heatmap")

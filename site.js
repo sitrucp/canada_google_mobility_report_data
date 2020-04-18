@@ -1,54 +1,444 @@
+var pymChild = null;
+var graphic_data = [];
 
-d3.queue()
-.defer(d3.csv, "https://raw.githubusercontent.com/sitrucp/canada_google_mobility_report_data/master/google_mobility_Canada_data.csv")
-.await(function(error, cases, mortalities, hr_lookup) {
-    //everthing else below is in d3.queue scope
+function drawGraphic() {
+  var chartwidth = parseInt(d3.select("body").style("width"));
+  legendformat = d3.format("." + dvc.essential.legenddecimals + "f");
+  displayformat = d3.format("." + dvc.essential.displaydecimals + "f");
 
-    // date_full,province,category,value,date
+  canadianProv = dvc.essential.canadianProv;
 
-    // summarize cases and mortalities counts overall
-    var case_total = cases.length;
-    var mort_total = mortalities.length;
-    var div = document.getElementById('header');
-    div.innerHTML += 'Canada total: cases: ' + case_total.toLocaleString() + ' mortalities: ' + mort_total.toLocaleString();
+  provinces = graphic_data.filter(function(d) {
+    return canadianProv.contains(d.Prov);
+  })
 
+  //create custom sorting index as set by entry of provinces in the config
+  sortObject={}
+  for(i=0;i<canadianProv.length;i++){
+    sortObject[canadianProv[i]]=i;
+  }
 
-//CREATE TABLE=================================
-    // generate data table below map
-    // sort table first
-    covid_data.sort((a,b) => a.province.localeCompare(b.province) || a.authority_report_health_region.localeCompare(b.authority_report_health_region));
+  categorySort={}
+  for(i=0;i<dvc.essential.categorySort.length;i++){
+    categorySort[dvc.essential.categorySort[i]]=i;
+  }
 
-    //let table_data = covid_data;
-    let table_data = covid_data.map(x => ({ 
-        "Province": x.province,
-        "Health Authority Region Name": x.authority_report_health_region,
-        "Statscan Region Name": x.statscan_arcgis_health_region,
-        "Case Count": x.case_count,
-        "Mortality Count": x.mort_count
-    }));
-    function generateTableHead(table, data) {
-        let thead = table.createTHead();
-        let row = thead.insertRow();
-        for (let key of data) {
-            let th = document.createElement("th");
-            let text = document.createTextNode(key);
-            th.appendChild(text);
-            row.appendChild(th);
+  provinces.sort(function(a,b){
+    return categorySort[a.Category] - categorySort[b.Category]
+  })
+  provinces.sort(function(a,b){
+    return sortObject[a.Prov] - sortObject[b.Prov]
+  })
+
+  nameCodeLookup={}
+  for(i=0;i<provinces.length;i++){
+    nameCodeLookup[provinces[i].Prov]=provinces[i].Prov
+  }
+
+  columnDates = Object.keys(graphic_data[0]).filter(function(d) {
+    return /^[A-Z]/i.test(d) == false;
+  });
+
+  dates = columnDates.map(function(d) {
+    return d3.timeParse(dvc.essential.timeParseFormat)(d);
+  });
+
+  nested = d3.nest()
+    .key(function(d) {
+      return d.Category
+    })
+    .key(function(d) {
+      return d.Prov
+    })
+    .entries(provinces)
+
+  if (chartwidth < dvc.optional.mobileBreakpoint) {
+    var screenSize = "small";
+  } else {
+    var screenSize = "medium"
+  }
+
+  var margin = dvc.optional.margin[screenSize]
+  // get height of each category from on
+  var categoryHeight = dvc.essential.categoryHeight[screenSize]
+  // set total svg height as the num categories * category height
+  var height = categoryHeight * canadianProv.length
+  var width = chartwidth - margin.left - margin.right;
+
+  // data should be an array with an object where the key is the category name.
+  // The value is an array of datapoints/objects with a date and magnitude.
+
+  defineBreaks(provinces);
+  setupScales();
+  createKey();
+
+  var x = d3.scaleTime()
+    .domain(d3.extent(dates))
+    .range([0, width])
+
+  var svg = d3.select('div#charts')
+    .selectAll('svg')
+    .data(nested)
+    .enter()
+    .append('svg')
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+    .attr('class', "group")
+    .attr('transform', function(d, i) {
+      return 'translate(' + margin.left + ',' + margin.top + ')'
+    });
+
+  svg.append('text')
+    .text(function(d) {
+      return d.key
+    })
+    .attr('y', -margin.top + 15)
+    .attr('x', -margin.left)
+    .attr('font-weight', 700)
+    .style("font-size", "16px")
+    .style("fill", "#323132");
+
+  category = svg.selectAll('g.category')
+    .data(function(d) {
+      return d.values;
+    })
+    .enter()
+    .append('g')
+    .attr('class', "category")
+    .attr('transform', function(d, i) {
+      return 'translate(0,' + (i * categoryHeight + margin.top) + ')'
+    });
+
+  category.append('text')
+    .text(function(d) {
+      return nameCodeLookup[d.key]
+    })
+    .attr("x", -5)
+    .attr('text-anchor', "end")
+
+  blocks = category.selectAll('rect')
+    .data(function(d) {
+      return d.values.map(function(d) {
+        var blank = []
+        for (i = 0; i < columnDates.length; i++) {
+          blank.push({
+            "date": columnDates[i],
+            "value": d[columnDates[i]]
+          })
         }
-    }
-        function generateTable(table, data) {
-        for (let element of data) {
-            let row = table.insertRow();
-            for (key in element) {
-                let cell = row.insertCell();
-                let text = document.createTextNode(element[key]);
-                cell.appendChild(text);
-            }
-        }
-    }
-    let table = document.querySelector("table");
-    let data = Object.keys(table_data[0]);
-    generateTableHead(table, data);
-    generateTable(table, table_data);
+        return blank;
+      })[0]
+    })
+    .enter()
+    .append('rect')
+    .attr("x", function(d, i) {
+      return x(d3.timeParse(dvc.essential.timeParseFormat)(d.date));
+    })
+    .attr('y', -15)
+    .attr('height', 0.9 * categoryHeight)
+    .attr("width", function() {
+      return 0.95 * x.range()[1] / columnDates.length
+    })
+    .attr("fill", function(d) {
+      return color(+d.value)
+    })
+    .on("mouseover", function(d) {
+      setAxisVal(d.value)
+    })
+    .on("mouseout", function(d) {
+      hideaxisVal();
+    })
 
-});
+  function hideaxisVal() {
+    d3.select("#currLine")
+      .style("opacity", 0);
+
+    d3.select("#currVal").text("")
+      .style("opacity", 0);
+  }
+
+  function setAxisVal(value) {
+    d3.select("#currLine")
+      .style("opacity", function() {
+        return 1;
+      })
+      .transition()
+      .duration(400)
+      .attr("x1", function() {
+        return xkey(value);
+      })
+      .attr("x2", function() {
+
+        return xkey(value);
+      });
+
+
+    d3.select("#currVal")
+      .text(function() {
+        return displayformat(value);
+      })
+      .style("opacity", 1)
+      .transition()
+      .duration(400)
+      .attr("x", function() {
+        return xkey(value);
+      })
+  }
+
+  var xaxis = d3.axisBottom(x)
+    .tickSize(3)
+    .ticks(dvc.essential.tickNumber[screenSize])
+  // .ticks(d3.timeDay.every(dvc.optional.tickDayInterval));
+
+  d3.selectAll('path.domain')
+    .style('opacity', 0);
+
+  svg.append('g').attr("class", "axis").call(xaxis).attr('transform', "translate(" + (0.475 * x.range()[1] / columnDates.length) + "," + (canadianProv.length * categoryHeight + 3) + ")")
+
+  // make a key
+
+  function wrap(text, width) {
+    text.each(function() {
+      var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.1, // ems
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+      while (word = words.pop()) {
+        line.push(word);
+        tspan.text(line.join(" "));
+        if (tspan.node().getComputedTextLength() > width) {
+          line.pop();
+          tspan.text(line.join(" "));
+          line = [word];
+          tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+        }
+      }
+    });
+  } //end wrap function
+
+
+  function defineBreaks(data) {
+    //Flatten data values and work out breaks
+
+    //If jenks or equal then flatten data so we can work out what the breaks need to be
+
+    // Work out how many timepoints we have in our dataset; number of rows - area name & code // Look at linechart templates to see how?
+
+    // parse data into columns
+    if (dvc.essential.breaks == "jenks" || dvc.essential.breaks == "equal") {
+      var values = [];
+      allvalues = [];
+
+      for (var column in columnDates) {
+        values[columnDates[column]] = data.map(function(d) {
+          return +d[columnDates[column]];
+        }).filter(function(d) {
+          return !isNaN(d);
+        }).sort(d3.ascending);
+        allvalues = allvalues.concat(values[columnDates[column]]);
+      }
+      allvalues.sort(d3.ascending);
+    }
+
+
+    if (dvc.essential.breaks == "jenks") {
+      breaks = [];
+      ss.ckmeans(allvalues, (dvc.essential.numberBreaks)).map(function(cluster, i) {
+        if (i < dvc.essential.numberBreaks - 1) {
+          breaks.push(cluster[0]);
+        } else {
+          breaks.push(cluster[0]);
+          //if the last cluster take the last max value
+          breaks.push(cluster[cluster.length - 1]);
+        }
+      });
+    } else if (dvc.essential.breaks == "equal") {
+      breaks = ss.equalIntervalBreaks(allvalues, dvc.essential.numberBreaks);
+    } else {
+      breaks = dvc.essential.breaks[0];
+    }
+
+    //round breaks to specified decimal places
+    breaks = breaks.map(function(each_element) {
+      return Number(each_element.toFixed(dvc.essential.legenddecimals));
+    });
+
+    //work out halfway point (for no data position)
+    midpoint = breaks[0] + ((breaks[dvc.essential.numberBreaks] - breaks[0]) / 2);
+
+  }
+
+  function setupScales() {
+    //set up d3 color scales
+    //Load colours
+    if (typeof dvc.essential.varcolour === 'string') {
+      // colour = colorbrewer[dvc.varcolour][dvc.numberBreaks];
+      colour = chroma.scale(dvc.essential.varcolour).colors(dvc.essential.numberBreaks);
+
+    } else {
+      colour = dvc.essential.varcolour;
+    }
+
+    //set up d3 color scales
+    color = d3.scaleThreshold()
+      .domain(breaks.slice(1))
+      .range(colour.reverse());
+
+  }
+
+
+  function createKey() {
+    var color = d3.scaleThreshold()
+      .domain(breaks)
+      .range(colour);
+
+    keyheight = 65;
+
+    keywidth = d3.select("#key").node().getBoundingClientRect().width;
+
+    svgkey = d3.select("#key")
+      .append("svg")
+      .attr("id", "key")
+      .attr("width", keywidth)
+      .attr("height", keyheight);
+
+
+    xkey = d3.scaleLinear()
+      .domain([breaks[0], breaks[dvc.essential.numberBreaks]]) /*range for data*/
+      .range([0, keywidth - 30]); /*range for pixels*/
+
+    y = d3.scaleLinear()
+      .domain([breaks[0], breaks[dvc.essential.numberBreaks]]) /*range for data*/
+      .range([0, keywidth - 30]); /*range for pixels*/
+
+    var xAxis = d3.axisBottom(xkey)
+      .tickSize(15)
+      .tickValues(color.domain())
+      .tickFormat(legendformat);
+
+    var g2 = svgkey.append("g").attr("id", "horiz")
+      .attr("transform", "translate(15,30)");
+
+
+    keyhor = d3.select("#horiz");
+
+    g2.selectAll("rect")
+      .data(color.range().map(function(d, i) {
+
+        return {
+          x0: i ? xkey(color.domain()[i + 1]) : xkey.range()[0],
+          x1: i < color.domain().length ? xkey(color.domain()[i + 1]) : xkey.range()[1],
+          z: d
+        };
+      }))
+      .enter().append("rect")
+      .attr("class", "blocks")
+      .attr("height", 8)
+      .attr("x", function(d) {
+        return d.x0;
+      })
+      .attr("width", function(d) {
+        return d.x1 - d.x0;
+      })
+      .style("opacity", 0.8)
+      .style("fill", function(d) {
+        return d.z;
+      });
+
+
+    g2.append("line")
+      .attr("id", "currLine")
+      .attr("x1", xkey(10))
+      .attr("x2", xkey(10))
+      .attr("y1", -10)
+      .attr("y2", 8)
+      .attr("stroke-width", "2px")
+      .attr("stroke", "#000")
+      .attr("opacity", 0);
+
+    g2.append("text")
+      .attr("id", "currVal")
+      .attr("x", xkey(10))
+      .attr("y", -15)
+      .attr("fill", "#000")
+      .attr('font-size',12)
+      .text("");
+
+
+
+    keyhor.selectAll("rect")
+      .data(color.range().map(function(d, i) {
+        return {
+          x0: i ? xkey(color.domain()[i]) : xkey.range()[0],
+          x1: i < color.domain().length ? xkey(color.domain()[i + 1]) : xkey.range()[1],
+          z: d
+        };
+      }))
+      .attr("x", function(d) {
+        return d.x0;
+      })
+      .attr("width", function(d) {
+        return d.x1 - d.x0;
+      })
+      .style("fill", function(d) {
+        return d.z;
+      });
+
+    keyhor.call(xAxis).append("text")
+      .attr("id", "caption")
+      .attr("x", -63)
+      .attr("y", -20)
+      .text("");
+
+    keyhor.append("rect")
+      .attr("id", "keybar")
+      .attr("width", 8)
+      .attr("height", 0)
+      .attr("transform", "translate(15,0)")
+      .style("fill", "#ccc")
+      .attr("x", xkey(0));
+
+    d3.select("#key")
+      .append("p")
+      .attr("id", "keyunit")
+      .style("margin-top", "-6px")
+      .style("margin-left", "10px")
+      .text(dvc.essential.varunit);
+  } //end createkey
+
+
+} // closes drawGraphic
+
+if (Modernizr.svg) {
+  d3.json("config.json", function(error, config) {
+    dvc = config;
+
+    d3.csv(dvc.essential.graphic_data_url, function(error, data) {
+
+      graphic_data = data;
+
+      pymChild = new pym.Child({
+        renderCallback: drawGraphic
+      });
+    }) // close d3.csv
+  })
+} else {
+  pymChild = new pym.Child();
+  pymChild.sendHeight();
+};
+
+Array.prototype.contains = function(obj) {
+  var i = this.length;
+  while (i--) {
+    if (this[i] === obj) {
+      return true;
+    }
+  }
+  return false;
+}
