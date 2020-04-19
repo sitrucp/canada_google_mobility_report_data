@@ -2,18 +2,17 @@
 
 Google is providing this location history visit & length of stay change compared to baseline  data for covid-19 related analysis as proxy to recommended "stay at home" adherence. As of April 18, the data availble spans period from Feb 15 to Apr 11 2020. 
 
-Data is available as csv file format at <a href="https://www.google.com/covid19/mobility/">Google Community Mobility Report webpage</a>. 
+Data is available as csv file format at <a href="https://www.google.com/covid19/mobility/">Google Community Mobility Report webpage</a>. Google provides a csv file with global data or site visitor can filter for specific country or country sub regions eg state or provinces, etc and download resulting PDF format.
 
-Users can download csv file or use page feature to filter for specific country or country sub regions eg state or provinces, etc.
+Excel / Power Query: For this heatmap visualizaiton the global csv data was transformed using Excel Power Query. The Excel files and Power Query M Code are in the repository. The Excel file has two Pivot Table and Chart combos:
 
-The csv data was transformed using Excel Power Query. The Excel files and their M Code are provided here. The Excel file has Pivot Table and Chart combos that can be used to slice and dice global data by date, country, sub region 1 & 2 and category. Another ivot Table and Chart is setup as a heatmap visualization of values by date for each province and territory.
+1) One to use for analytical purposes to slice and dice global data by date, country, sub region 1 & 2 and category.
 
-In addition, a <a href="https://sitrucp.github.io/canada_google_mobility_report_data/">separate D3.js heatmap visualization</a> was created for 12 Canadian Provinces and Territories was created.
+2) Another provides data for heatmap visualization of changes by date for each province and territory.
 
-The D3.js visualization uses slightly modified code from <a href="https://github.com/datasciencecampus/google-mobility-reports-data">https://github.com/datasciencecampus/google-mobility-reports-data</a> that datasciencecampus used to create this <a href="https://onsvisual.github.io/google-mobility-map/heatmap/">heatmap comparing categories of 6 countries</a>.
+D3.js: In addition a separate analysis presents changes by date for each of the 12 Canadian Provinces and Territories in a <a href="https://sitrucp.github.io/canada_google_mobility_report_data/">D3.js heatmap visualization</a>. 
 
-
-
+The D3.js visualization was created using slightly modified code from <a href="https://github.com/datasciencecampus/google-mobility-reports-data">datasciencecampus</a>.
 
 Screenshot of D3.js visualization
 ![Alt text](/screenshot_heatmap.jpg?raw=true)
