@@ -15,4 +15,7 @@ D3.js: In addition a separate analysis presents changes by date for each of the 
 The D3.js visualization was created using code from <a href="https://github.com/ONSvisual/google-mobility-map">ONSvisual</a>.
 
 Screenshot of D3.js visualization
-![Alt text](/screenshot_heatmap.jpg?raw=true)
+![Alt text](/D3js_screenshot_heatmap.jpg?raw=true)
+
+creenshot of Excel visualization
+![Alt text](/Excel_screenshot_heatmap.jpg?raw=true)
