@@ -12,7 +12,7 @@ Excel / Power Query: For this heatmap visualizaiton the global csv data was tran
 
 D3.js: In addition a separate analysis presents changes by date for each of the 12 Canadian Provinces and Territories in a <a href="https://sitrucp.github.io/canada_google_mobility_report_data/">D3.js heatmap visualization</a>. 
 
-The D3.js visualization was created using slightly modified code from <a href="https://github.com/datasciencecampus/google-mobility-reports-data">datasciencecampus</a>.
+The D3.js visualization was created using code from <a href="https://github.com/ONSvisual/google-mobility-map">ONSvisual</a>.
 
 Screenshot of D3.js visualization
 ![Alt text](/screenshot_heatmap.jpg?raw=true)
