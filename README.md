@@ -10,9 +10,9 @@ Excel / Power Query: For this heatmap visualizaiton the global csv data was tran
 
 2) Another provides data for heatmap visualization of changes by date for each province and territory.
 
-D3.js: In addition a separate analysis presents changes by date for each of the 12 Canadian Provinces and Territories in a <a href="https://sitrucp.github.io/covid_canada_google_mobility/">D3.js heatmap visualization</a>. 
+D3.js: In addition a separate analysis presents changes by date for each of the 12 Canadian Provinces and Territories in a <a href="https://sitrucp.github.io/covid_canada_google_mobility">https://sitrucp.github.io/covid_canada_google_mobility</a>.
 
-The D3.js visualization was created using code from <a href="https://github.com/ONSvisual/google-mobility-map">ONSvisual</a>.
+The D3.js visualization was created using code from <a href="https://github.com/ONSvisual/google-mobility-map">ONSvisual - https://github.com/ONSvisual/google-mobility-map</a>.
 
 Screenshot of D3.js visualization
 
