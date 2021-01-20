@@ -1,6 +1,6 @@
 {
   "essential" : {
-    "graphic_data_url": "https://raw.githubusercontent.com/sitrucp/canada_google_mobility_report_data/master/google_mobility_canada_data.csv",
+    "graphic_data_url": "https://sitrucp.github.io/covid_canada_mobility_google/google_mobility_canada_data.csv",
     "canadianProv":["AB","BC","MB","NB","NF","NS","NT","NU","ON","PE","QC","SK","YK"],
     "categorySort":["Workplaces","Retail & Recreation","Transit Stations","Grocery & Pharmacy","Parks","Residential"],
     "categoryHeight": {
@@ -15,7 +15,7 @@
     },
     "tickNumber":{
       "small":2,
-      "medium":14
+      "medium":7
     },
     "breaks":[[-100,-80,-60,-40,-20,20,40,60,75]],
     "numberBreaks":8,
@@ -40,6 +40,6 @@
       }
     },
     "mobileBreakpoint" : 450,
-    "tickDayInterval": 14
+    "tickDayInterval": 7
   }
 }
